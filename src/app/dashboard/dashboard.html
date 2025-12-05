@@ -1,0 +1,118 @@
+<div class="lista-contas-container">
+
+  <h2>Lista de Contas</h2>
+
+  <!-- Labels informativas -->
+  <div class="info">
+    <span class="label">Mês de referência: <strong>Dezembro/2025</strong></span>
+    <span class="label">Valor total do mês: <strong>{{ valorTotal | currency:'BRL':'symbol':'1.2-2' }}</strong></span>
+  </div>
+
+  <!-- Botão Incluir -->
+  <div class="actions">
+    <button class="btn btn-incluir" (click)="abrirFormulario = !abrirFormulario">Registrar Nova Conta</button>
+  </div>
+
+  <!-- Loader -->
+  @if (carregando) {
+    <div class="loader">Carregando...</div>
+  }
+
+  <!-- Formulário de cadastro -->
+  @if (abrirFormulario) {
+    <div class="form-conta">
+      <h3>Registrar Nova Conta</h3>
+      <form>
+        <div class="form-row">
+          <label>Nome:</label>
+          <input type="text" [(ngModel)]="novaConta.nome" name="nome"/>
+        </div>
+        <div class="form-row">
+          <label>Valor:</label>
+          <input type="number" [(ngModel)]="novaConta.valor" name="valor"/>
+        </div>
+        <div class="form-row">
+          <label>Data de Vencimento:</label>
+          <input type="date" [(ngModel)]="novaConta.dataVencimento" name="dataVencimento"/>
+        </div>
+        <div class="form-row">
+          <label>Data de Pagamento:</label>
+          <input type="date" [(ngModel)]="novaConta.dataPagamento" name="dataPagamento"/>
+        </div>
+        <div class="form-row">
+          <label>Categoria:</label>
+          <select [(ngModel)]="novaConta.categoriaContas" name="categoriaContas">
+            @for (cat of categorias; track $index) {
+              <option [ngValue]="cat.id">{{ cat.nome }}</option>
+            }
+          </select>
+
+
+        </div>
+        <div class="form-row">
+          <label>Número da Parcela:</label>
+          <input type="number" [(ngModel)]="novaConta.numeroParcela" name="numeroParcela"/>
+        </div>
+        <div class="form-row">
+          <label>Total de Parcelas:</label>
+          <input type="number" [(ngModel)]="novaConta.totalParcelas" name="totalParcelas"/>
+        </div>
+        <div class="form-row checkbox-row">
+          <label>
+            <input type="checkbox" [(ngModel)]="novaConta.contaFixa" name="contaFixa"/>
+            Conta Fixa
+          </label>
+        </div>
+        <div class="form-row">
+          <label>Responsável:</label>
+          <input type="text" [(ngModel)]="novaConta.responsavel" name="responsavel"/>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-incluir" (click)="registrarConta()">Salvar</button>
+          <button type="button" class="btn btn-excluir" (click)="limparFormulario()">Limpar</button>
+        </div>
+      </form>
+    </div>
+  }
+
+  <!-- Loader -->
+  @if (carregando) {
+    <div class="loader">Carregando...</div>
+  }
+
+  <!-- Tabela de contas -->
+  @if (!carregando) {
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Valor</th>
+          <th>Vencimento</th>
+          <th>Pagamento</th>
+          <th>Paga?</th>
+          <th>Responsável</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (conta of contas; track conta.idConta) {
+          <tr>
+            <td>{{ conta.idConta }}</td>
+            <td>{{ conta.nome }}</td>
+            <td>{{ conta.valor | currency:'BRL':'symbol':'1.2-2' }}</td>
+            <td>{{ conta.dataVencimento | date:'dd/MM/yyyy' }}</td>
+            <td>{{ conta.dataPagamento | date:'dd/MM/yyyy' }}</td>
+            <td>{{ conta.estaPaga ? 'Sim' : 'Não' }}</td>
+            <td>{{ conta.responsavel }}</td>
+            <td class="acoes">
+              <button class="btn btn-editar"(click)="editar(conta.idConta)">Editar</button>
+              <button class="btn btn-excluir"(click)="excluir(conta.idConta)">Excluir</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
