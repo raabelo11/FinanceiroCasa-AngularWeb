@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { ANGULAR_IMPORTS } from '../shared/angular-imports';
 import { ContasService } from './service/dashboard-service';
 import { Conta } from '../shared/models/Conta';
 import { ContaDTO } from '../shared/models/ContaDTO';
 import { CategoriaConta } from '../shared/models/CategoriaConta';
+import { Chart } from 'chart.js/auto';
+import { environment } from '../../environments/environment';
 
 @Component({
   standalone: true,
@@ -12,17 +14,21 @@ import { CategoriaConta } from '../shared/models/CategoriaConta';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })
-export class Dashboard {
+export class Dashboard implements AfterViewInit {
 
   /* =========================
      NOVO — Abas
      ========================= */
   abaAtiva: 'geral' | 'contas' | 'categorias' | 'planejamento' = 'contas';
+  chart!: Chart;
 
   selecionarAba(
     aba: 'geral' | 'contas' | 'categorias' | 'planejamento'
   ): void {
     this.abaAtiva = aba;
+    if (aba === 'categorias') {
+    setTimeout(() => this.criarGraficoCategoria());
+  }
   }
 
   criarPlanejamento(): void {
@@ -45,7 +51,7 @@ export class Dashboard {
         nome: key.replace(/([A-Z])/g, ' $1').trim()
       }));
 
-  anos: number[] = [2023, 2024, 2025];
+  anos: number[] = [2023, 2024, 2025, 2026];
 
   meses = [
     { id: 1, nome: 'Janeiro' },
@@ -80,6 +86,9 @@ export class Dashboard {
   };
 
   constructor(private contasService: ContasService) {}
+  ngAfterViewInit(): void {
+    this.criarGraficoCategoria();
+  }
 
   /* =========================
      CICLO DE VIDA
@@ -87,6 +96,24 @@ export class Dashboard {
   ngOnInit(): void {
     this.buscarContas();
   }
+
+criarGraficoCategoria(): void {
+  this.chart = new Chart('graficoContas', {
+  type: 'pie',
+  data: {
+    labels: ['Aluguel', 'Água', 'Luz', 'Internet'],
+    datasets: [
+      {
+        data: [1200, 150, 200, 100]
+      }
+    ]
+  },
+  options: {
+    responsive: true
+  }
+});
+
+}
 
   /* =========================
      MÉTODOS EXISTENTES (INTACTOS)
@@ -173,8 +200,19 @@ export class Dashboard {
   }
 
   filtrar(): void {
-    // futura chamada de API
-  }
+    const ano = this.anoSelecionado;
+    const mes = this.mesSelecionado;
+
+    const inicio = `${ano}-${String(mes).padStart(2, '0')}-01T00:00:00`;
+
+    const ultimoDia = new Date(ano, mes, 0).getDate();
+    const fim = `${ano}-${String(mes).padStart(2, '0')}-${ultimoDia}T23:59:59`;
+
+    console.log(inicio);
+    console.log(fim);
+    console.log(environment.apiUrl);
+}
+
 
   limparFiltro(): void {
     this.anoSelecionado = new Date().getFullYear();

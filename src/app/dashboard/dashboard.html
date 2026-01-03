@@ -22,6 +22,41 @@
        VISÃO GERAL
        ========================= -->
   @if (abaAtiva === 'geral') {
+    <div class="filtro-periodo">
+      <div class="filtro-header">
+        <h3>Filtrar por período</h3>
+      </div>
+
+      <div class="filtro-campos">
+        <div class="combo-group">
+          <label>Ano</label>
+          <div class="combo">
+            <select [(ngModel)]="anoSelecionado" (change)="onAnoChange()">
+              @for (ano of anos; track $index) {
+                <option [ngValue]="ano">{{ ano }}</option>
+              }
+            </select>
+            <span class="combo-arrow">⌄</span>
+          </div>
+        </div>
+
+        <div class="combo-group">
+          <label>Mês</label>
+          <div class="combo">
+            <select [(ngModel)]="mesSelecionado" (change)="onMesChange()">
+              @for (mes of meses; track $index) {
+                <option [ngValue]="mes.id">{{ mes.nome }}</option>
+              }
+            </select>
+            <span class="combo-arrow">⌄</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="filtro-acoes">
+        <button class="btn btn-incluir" (click)="filtrar()">Filtrar</button>
+      </div>
+    </div>
     <div class="cards-resumo">
       <div class="card">
         <span>Total do Mês</span>
@@ -37,6 +72,11 @@
         <span>Contas Pendentes</span>
         <strong>0</strong>
       </div>
+
+      <div class="card">
+        <span>Total Contas</span>
+        <strong>0</strong>
+      </div>
     </div>
   }
 
@@ -44,6 +84,41 @@
        CATEGORIAS
        ========================= -->
   @if (abaAtiva === 'categorias') {
+    <div class="filtro-periodo">
+      <div class="filtro-header">
+        <h3>Filtrar por período</h3>
+      </div>
+
+      <div class="filtro-campos">
+        <div class="combo-group">
+          <label>Ano</label>
+          <div class="combo">
+            <select [(ngModel)]="anoSelecionado" (change)="onAnoChange()">
+              @for (ano of anos; track $index) {
+                <option [ngValue]="ano">{{ ano }}</option>
+              }
+            </select>
+            <span class="combo-arrow">⌄</span>
+          </div>
+        </div>
+
+        <div class="combo-group">
+          <label>Mês</label>
+          <div class="combo">
+            <select [(ngModel)]="mesSelecionado" (change)="onMesChange()">
+              @for (mes of meses; track $index) {
+                <option [ngValue]="mes.id">{{ mes.nome }}</option>
+              }
+            </select>
+            <span class="combo-arrow">⌄</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="filtro-acoes">
+        <button class="btn btn-incluir" (click)="filtrar()">Filtrar</button>
+      </div>
+    </div>
     <div class="categorias-mock">
       @for (cat of categorias; track cat.id) {
         <div class="categoria-item">
@@ -51,6 +126,16 @@
           <strong>R$ 0,00</strong>
         </div>
       }
+    </div>
+    <div class="categoria-item" style="gap: 10px;">
+        <strong>Valor Total: </strong>
+        <strong style="color: green;">R$ 0,00</strong>
+    </div>
+
+      <div class="grafico-valor" style="display: flex; gap: 10px; flex-direction: column;">
+        <div style="height: 300px;">
+        <canvas id="graficoContas"></canvas>
+      </div>
     </div>
   }
 
