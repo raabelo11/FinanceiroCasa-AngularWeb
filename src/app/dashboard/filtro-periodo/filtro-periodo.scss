@@ -1,0 +1,80 @@
+.filtro-periodo {
+    width: 100%;
+    max-width: 900px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .filtro-header h3 {
+    margin: 0 0 1rem;
+    color: #2c3e50;
+    display: flex;
+    justify-content: center;
+  }
+
+  .filtro-campos {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .combo-group {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .combo {
+    position: relative;
+
+    select {
+      width: 100%;
+      padding: 0.6rem 2.2rem 0.6rem 0.8rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      background-color: #fff;
+      appearance: none;
+      cursor: pointer;
+      transition: border-color 0.3s, box-shadow 0.3s;
+
+      &:focus {
+        outline: none;
+        border-color: #3498db;
+        box-shadow: 0 0 0 2px rgba(52,152,219,0.2);
+      }
+    }
+  }
+
+  label {
+        font-weight: 1700;
+        font-size: 15px;
+        margin-bottom: 0.3rem;
+        color: #000000;
+        font-weight: bold;
+      }
+
+      input[type="date"] {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  color: #333;
+
+  &:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+  }
+}
+
+// Webkit pseudo-elementos (funciona em Chrome/Safari)
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(0.4);
+}
+
+.filtro-acoes{
+  margin-top: 20px;
+}

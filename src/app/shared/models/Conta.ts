@@ -4,7 +4,6 @@ export interface Conta {
   valor: number;
   dataVencimento: string;
   dataPagamento: string;
-  estaPaga: boolean;
   categoriaContas: number;
   numeroParcela: number | null;
   totalParcelas: number | null;

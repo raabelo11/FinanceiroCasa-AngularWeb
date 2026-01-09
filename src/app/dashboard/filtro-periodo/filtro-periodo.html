@@ -1,0 +1,19 @@
+<div class="filtro-periodo">
+  <div class="labelPesquisa">
+    <label style="display: flex; justify-content: center;">Filtrar por período</label>
+  </div>
+
+  <div class="dataInicioFimPesquisar" style="display: flex; justify-content: space-around; height: 30px">
+    <label>Data Início</label>
+    <label>Data Fim</label>
+  </div>
+
+  <div class="calendariosIniFim" style="display: flex; justify-content: space-around;">
+    <input type="date" [(ngModel)]="dataInicio">
+    <input type="date" [(ngModel)]="dataFim">
+  </div>
+
+    <div class="filtro-acoes" style="display: flex; justify-content: end;">
+      <button class="btn btn-incluir" (click)="filtrar()">Filtrar</button>
+    </div>
+</div>

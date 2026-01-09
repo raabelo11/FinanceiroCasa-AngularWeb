@@ -4,8 +4,9 @@ export interface ContaDTO{
   dataVencimento: string;
   dataPagamento: string;
   categoriaContas: number;
-  numeroParcela: number;
-  totalParcelas: number;
+  numeroParcela: number | null;
+  totalParcelas: number | null;
   contaFixa: boolean;
   responsavel: string;
+  tipoMovimento: number;
 }

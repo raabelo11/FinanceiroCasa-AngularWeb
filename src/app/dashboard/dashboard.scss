@@ -23,11 +23,6 @@
     gap: 2rem;
     margin-bottom: 1rem;
     flex-wrap: wrap;
-
-    .label {
-      font-size: 1rem;
-      color: #555;
-    }
   }
 
   /* =========================
@@ -45,84 +40,6 @@
     font-size: 1.2rem;
     color: #555;
     margin-bottom: 1rem;
-  }
-
-  /* =========================
-     Filtro Período
-     ========================= */
-  .filtro-periodo {
-    width: 100%;
-    max-width: 900px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-  }
-
-  .filtro-header h3 {
-    margin: 0 0 1rem;
-    color: #2c3e50;
-    display: flex;
-    justify-content: center;
-  }
-
-  .filtro-campos {
-    display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-
-  .combo-group {
-    flex: 1;
-    min-width: 200px;
-
-    label {
-      display: flex;
-      margin-bottom: 0.4rem;
-      font-weight: 600;
-      color: #555;
-      justify-content: center;
-    }
-  }
-
-  .combo {
-    position: relative;
-
-    select {
-      width: 100%;
-      padding: 0.6rem 2.2rem 0.6rem 0.8rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 1rem;
-      background-color: #fff;
-      appearance: none;
-      cursor: pointer;
-      transition: border-color 0.3s, box-shadow 0.3s;
-
-      &:focus {
-        outline: none;
-        border-color: #3498db;
-        box-shadow: 0 0 0 2px rgba(52,152,219,0.2);
-      }
-    }
-  }
-
-  .combo-arrow {
-    position: absolute;
-    top: 50%;
-    right: 0.8rem;
-    transform: translateY(-50%);
-    pointer-events: none;
-    font-size: 0.9rem;
-    color: #666;
-  }
-
-  .filtro-acoes {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-top: 1.5rem;
   }
 
   /* =========================
@@ -148,12 +65,6 @@
       flex-direction: column;
       margin-bottom: 1rem;
 
-      label {
-        font-weight: 600;
-        margin-bottom: 0.3rem;
-        color: #555;
-      }
-
       input,
       select {
         padding: 0.5rem;
@@ -165,10 +76,6 @@
       &.checkbox-row {
         flex-direction: row;
         align-items: center;
-
-        label {
-          margin-bottom: 0;
-        }
       }
     }
 
@@ -229,20 +136,7 @@
   /* =========================
      Botões
      ========================= */
-  .btn-incluir {
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s;
 
-    &:hover {
-      background-color: #2980b9;
-      transform: translateY(-1px);
-    }
-  }
 
   .btn-editar {
     background-color: #f1c40f;
@@ -384,5 +278,19 @@
       margin-bottom: 1rem;
     }
   }
+
+  :host {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.demo-section + .demo-section {
+  margin-top: 16px;
+}
+
+.democard {
+  width: 300px;
+}
 }
 

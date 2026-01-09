@@ -22,263 +22,162 @@
        VISÃO GERAL
        ========================= -->
   @if (abaAtiva === 'geral') {
-    <div class="filtro-periodo">
-      <div class="filtro-header">
-        <h3>Filtrar por período</h3>
-      </div>
+  <app-filtro-periodo (datasMudaram)="receberDatas($event)"></app-filtro-periodo>
 
-      <div class="filtro-campos">
-        <div class="combo-group">
-          <label>Ano</label>
-          <div class="combo">
-            <select [(ngModel)]="anoSelecionado" (change)="onAnoChange()">
-              @for (ano of anos; track $index) {
-                <option [ngValue]="ano">{{ ano }}</option>
-              }
-            </select>
-            <span class="combo-arrow">⌄</span>
-          </div>
-        </div>
-
-        <div class="combo-group">
-          <label>Mês</label>
-          <div class="combo">
-            <select [(ngModel)]="mesSelecionado" (change)="onMesChange()">
-              @for (mes of meses; track $index) {
-                <option [ngValue]="mes.id">{{ mes.nome }}</option>
-              }
-            </select>
-            <span class="combo-arrow">⌄</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="filtro-acoes">
-        <button class="btn btn-incluir" (click)="filtrar()">Filtrar</button>
-      </div>
+  <div class="cards-resumo">
+    <div class="card">
+      <span>Total do Mês</span>
+      <strong>{{ valorTotal | currency:'BRL' }}</strong>
     </div>
-    <div class="cards-resumo">
-      <div class="card">
-        <span>Total do Mês</span>
-        <strong>{{ valorTotal | currency:'BRL' }}</strong>
-      </div>
 
-      <div class="card">
-        <span>Contas Pagas</span>
-        <strong>1</strong>
-      </div>
-
-      <div class="card">
-        <span>Contas Pendentes</span>
-        <strong>0</strong>
-      </div>
-
-      <div class="card">
-        <span>Total Contas</span>
-        <strong>0</strong>
-      </div>
+    <div class="card">
+      <span>Contas Pagas</span>
+      <strong>1</strong>
     </div>
+
+    <div class="card">
+      <span>Contas Pendentes</span>
+      <strong>0</strong>
+    </div>
+
+    <div class="card">
+      <span>Total Contas</span>
+      <strong>0</strong>
+    </div>
+  </div>
   }
 
   <!-- =========================
        CATEGORIAS
        ========================= -->
   @if (abaAtiva === 'categorias') {
-    <div class="filtro-periodo">
-      <div class="filtro-header">
-        <h3>Filtrar por período</h3>
-      </div>
+  <app-filtro-periodo (datasMudaram)="receberDatas($event)"></app-filtro-periodo>
 
-      <div class="filtro-campos">
-        <div class="combo-group">
-          <label>Ano</label>
-          <div class="combo">
-            <select [(ngModel)]="anoSelecionado" (change)="onAnoChange()">
-              @for (ano of anos; track $index) {
-                <option [ngValue]="ano">{{ ano }}</option>
-              }
-            </select>
-            <span class="combo-arrow">⌄</span>
-          </div>
-        </div>
+  <div class="categorias-mock">
+    @for (cat of categorias; track cat.id) {
+    <div class="categoria-item">
+      <span>{{ cat.nome }}</span>
+      <strong>R$ 0,00</strong>
+    </div>
+    }
+  </div>
+  <div class="categoria-item" style="gap: 10px;">
+    <strong>Valor Total: </strong>
+    <strong style="color: green;">R$ 0,00</strong>
+  </div>
 
-        <div class="combo-group">
-          <label>Mês</label>
-          <div class="combo">
-            <select [(ngModel)]="mesSelecionado" (change)="onMesChange()">
-              @for (mes of meses; track $index) {
-                <option [ngValue]="mes.id">{{ mes.nome }}</option>
-              }
-            </select>
-            <span class="combo-arrow">⌄</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="filtro-acoes">
-        <button class="btn btn-incluir" (click)="filtrar()">Filtrar</button>
-      </div>
+  <div class="grafico-valor" style="display: flex; gap: 10px; flex-direction: column;">
+    <div style="height: 300px;">
+      <canvas id="graficoContas"></canvas>
     </div>
-    <div class="categorias-mock">
-      @for (cat of categorias; track cat.id) {
-        <div class="categoria-item">
-          <span>{{ cat.nome }}</span>
-          <strong>R$ 0,00</strong>
-        </div>
-      }
-    </div>
-    <div class="categoria-item" style="gap: 10px;">
-        <strong>Valor Total: </strong>
-        <strong style="color: green;">R$ 0,00</strong>
-    </div>
-
-      <div class="grafico-valor" style="display: flex; gap: 10px; flex-direction: column;">
-        <div style="height: 300px;">
-        <canvas id="graficoContas"></canvas>
-      </div>
-    </div>
+  </div>
   }
 
   <!-- =========================
        PLANEJAMENTO
        ========================= -->
   @if (abaAtiva === 'planejamento') {
-    <div class="planejamento-mock">
-      <h3>Planejamento Financeiro</h3>
-      <p>Área reservada para metas, previsões e alertas futuros.</p>
-      <button class="btn btn-incluir" (click)="criarPlanejamento()">Nova Meta</button>
-    </div>
+  <div class="planejamento-mock">
+    <h3>Planejamento Financeiro</h3>
+    <p>Área reservada para metas, previsões e alertas futuros.</p>
+    <button class="btn btn-incluir" (click)="criarPlanejamento()">Nova Meta</button>
+  </div>
   }
 
   <!-- =========================
-       CONTAS (SEU CÓDIGO ORIGINAL)
+       CONTAS
        ========================= -->
   @if (abaAtiva === 'contas') {
+  <app-filtro-periodo (datasMudaram)="receberDatas($event)"></app-filtro-periodo>
 
-    <!-- Filtro -->
-    <div class="filtro-periodo">
-      <div class="filtro-header">
-        <h3>Filtrar por período</h3>
-      </div>
+  <h2>Lista de Contas</h2>
 
-      <div class="filtro-campos">
+    <span class="label">
+      Valor total do mês:
+      <strong>{{ valorTotal | currency:'BRL' }}</strong>
+    </span>
+  <div class="actions">
+    <button class="btn btn-incluir" (click)="abrirFormulario = !abrirFormulario">
+      Registrar Nova Conta
+    </button>
+  </div>
 
-        <div class="combo-group">
-          <label>Ano</label>
-          <div class="combo">
-            <select [(ngModel)]="anoSelecionado" (change)="onAnoChange()">
-              @for (ano of anos; track $index) {
-                <option [ngValue]="ano">{{ ano }}</option>
-              }
-            </select>
-            <span class="combo-arrow">⌄</span>
-          </div>
-        </div>
-
-        <div class="combo-group">
-          <label>Mês</label>
-          <div class="combo">
-            <select [(ngModel)]="mesSelecionado" (change)="onMesChange()">
-              @for (mes of meses; track $index) {
-                <option [ngValue]="mes.id">{{ mes.nome }}</option>
-              }
-            </select>
-            <span class="combo-arrow">⌄</span>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="filtro-acoes">
-        <button class="btn btn-incluir" (click)="filtrar()">Filtrar</button>
-      </div>
-    </div>
-
-    <h2>Lista de Contas</h2>
-
-    <div class="info">
-      <span class="label">
-        Mês de referência:
-        <strong>{{ mesNomeSelecionado() }}/{{ anoSelecionado }}</strong>
-      </span>
-
-      <span class="label">
-        Valor total do mês:
-        <strong>{{ valorTotal | currency:'BRL' }}</strong>
-      </span>
-    </div>
-
-    <div class="actions">
-      <button class="btn btn-incluir" (click)="abrirFormulario = !abrirFormulario">
-        Registrar Nova Conta
-      </button>
-    </div>
-
-    @if (carregando) {
-      <div class="loader">Carregando...</div>
-    }
-
-    @if (abrirFormulario) {
-      <div class="form-conta">
-        <h3>Registrar Nova Conta</h3>
-
-        <form>
-          <div class="form-row"><label>Nome:</label><input type="text" /></div>
-          <div class="form-row"><label>Valor:</label><input type="number" /></div>
-          <div class="form-row"><label>Data de Vencimento:</label><input type="date" /></div>
-          <div class="form-row"><label>Data de Pagamento:</label><input type="date" /></div>
-          <div class="form-row"><label>Categoria:</label><select></select></div>
-          <div class="form-row"><label>Número da Parcela:</label><input type="number" /></div>
-          <div class="form-row"><label>Total de Parcelas:</label><input type="number" /></div>
-
-          <div class="form-row checkbox-row">
-            <label><input type="checkbox" /> Conta Fixa</label>
-          </div>
-
-          <div class="form-row"><label>Responsável:</label><input type="text" /></div>
-
-          <div class="form-actions">
-            <button type="button" class="btn btn-incluir">Salvar</button>
-            <button type="button" class="btn btn-excluir">Limpar</button>
-          </div>
-        </form>
-      </div>
-    }
-
-    @if (!carregando) {
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Valor</th>
-            <th>Vencimento</th>
-            <th>Pagamento</th>
-            <th>Paga?</th>
-            <th>Responsável</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          @for (conta of contas; track conta.idConta) {
-            <tr>
-              <td>{{ conta.idConta }}</td>
-              <td>{{ conta.nome }}</td>
-              <td>{{ conta.valor | currency:'BRL' }}</td>
-              <td>{{ conta.dataVencimento | date:'dd/MM/yyyy' }}</td>
-              <td>{{ conta.dataPagamento | date:'dd/MM/yyyy' }}</td>
-              <td>{{ conta.estaPaga ? 'Sim' : 'Não' }}</td>
-              <td>{{ conta.responsavel }}</td>
-              <td class="acoes">
-                <button class="btn btn-editar">Editar</button>
-                <button class="btn btn-excluir">Excluir</button>
-              </td>
-            </tr>
-          }
-        </tbody>
-      </table>
-    }
+  @if (carregando) {
+  <div class="loader">Carregando...</div>
   }
 
+  @if (abrirFormulario) {
+  <div class="form-conta">
+    <h3>Registrar Nova Conta</h3>
+
+    <form>
+      <div class="form-row"><label>Nome:</label><input type="text" [(ngModel)]="formConta.nome" name="nome"/></div>
+      <div class="form-row"><label>Valor:</label><input type="number" [(ngModel)]="formConta.valor" name="valor"/></div>
+      <div class="form-row"><label>Data de Vencimento:</label><input type="date" [(ngModel)]="formConta.dataVencimento" name="dataVencimento"/></div>
+      <div class="form-row"><label>Data de Pagamento:</label><input type="date" [(ngModel)]="formConta.dataPagamento" name="dataPagamento"/></div>
+      <div class="form-row"><label>Categoria:</label>
+        <select [(ngModel)]="formConta.categoriaContas" name="categoriaContas">>
+          @for (cat of categorias; track cat.id) {
+            <option [value]="cat.id">{{ cat.nome }}</option>
+          }
+        </select>
+      </div>
+      <div class="form-row"><label>Número da Parcela:</label><input type="number" [(ngModel)]="formConta.numeroParcela" name="numeroParcela"/></div>
+      <div class="form-row"><label>Total de Parcelas:</label><input type="number" [(ngModel)]="formConta.totalParcelas" name="totalParcelas"/></div>
+
+      <div class="form-row checkbox-row">
+        <label>
+          <input type="checkbox" [(ngModel)]="formConta.contaFixa" name="contaFixa"/> Conta Fixa
+        </label>
+      </div>
+
+      <div class="form-row"><label>Responsável:</label><input type="text" [(ngModel)]="formConta.responsavel" name="responsavel"/></div>
+      <div class="form-row"><label>Tipo de Movimento:</label>
+        <select [(ngModel)]="formConta.tipoMovimento" name="tipoMovimento">
+          <option [value]="0">Despesa</option>
+          <option [value]="1">Receita</option>
+        </select>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn btn-incluir" (click)="salvar()">Salvar</button>
+        <button type="button" class="btn btn-excluir">Limpar</button>
+      </div>
+    </form>
+  </div>
+  }
+
+  @if (!carregando) {
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Valor</th>
+        <th>Vencimento</th>
+        <th>Pagamento</th>
+        <th>Paga?</th>
+        <th>Responsável</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (conta of contas; track conta.idConta) {
+      <tr>
+        <td>{{ conta.idConta }}</td>
+        <td>{{ conta.nome }}</td>
+        <td>{{ conta.valor | currency:'BRL' }}</td>
+        <td>{{ conta.dataVencimento | date:'dd/MM/yyyy' }}</td>
+        <td>{{ conta.dataPagamento | date:'dd/MM/yyyy' }}</td>
+        <td>{{ conta.responsavel }}</td>
+        <td class="acoes">
+          <button class="btn btn-editar">Editar</button>
+          <button class="btn btn-excluir">Excluir</button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  }
+  }
 </div>
